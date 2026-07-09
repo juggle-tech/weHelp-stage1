@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Comment System</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="script.js" defer></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+
+        <h2> 使用Fetch 測試RESTful APIs </h2>
+
+        <div class="form-area">
+            <div class="form-row">
+                <span>Name</span>
+                <input type="text" id="name" />
+            </div>
+
+            <div class="form-row">
+                <span>Content</span>
+                <textarea id="content"></textarea>
+            </div>
+
+            <button onclick="postMessage()">送出</button>
+        </div>
+
+        <hr>
+
+        <div id="board" class="board"></div>
+
+    </body>
+</html>

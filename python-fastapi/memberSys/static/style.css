@@ -1,0 +1,170 @@
+/* ===== 全域設定 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+
+    /* 明亮和煦背景：暖色系多層漸層疊加營造柔和光感 */
+    background-color: #fdf6ec;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 214, 165, 0.35) 0%, transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(255, 236, 200, 0.4) 0%, transparent 50%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.4) 0px, rgba(255, 255, 255, 0.4) 1px, transparent 1px, transparent 12px),
+        linear-gradient(135deg, #fff8ef 0%, #fdecd8 100%);
+    background-attachment: fixed;
+}
+
+h2 {
+    color: #7a5230;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+/* ===== 表單卡片 ===== */
+.form-card {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(200, 150, 90, 0.3);
+    border-radius: 16px;
+    padding: 36px 44px;
+    box-shadow: 0 8px 24px rgba(200, 150, 90, 0.18);
+    backdrop-filter: blur(4px);
+    width: min(90%, 380px);
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-row span {
+    width: 60px;
+    color: #7a5230;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+.form-row input {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 15px;
+    color: #7a5230;
+    background: #fff8ef;
+    border: 1px solid rgba(200, 150, 90, 0.35);
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.25s ease;
+}
+
+.form-row input:focus {
+    border-color: #a67c52;
+    box-shadow: 0 0 0 3px rgba(166, 124, 82, 0.2);
+    background: #fffdf8;
+}
+
+.form-card > button {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* ===== 連結按鈕（a 包 button）===== */
+.form-card a {
+    text-decoration: none;
+    display: block;
+    margin-top: 12px;
+}
+
+.form-card a button {
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid rgba(200, 150, 90, 0.4);
+}
+
+.form-card a button:hover {
+    background: #a67c52;
+    color: #fff8ef;
+}
+
+/* ===== 按鈕區塊置中排列 ===== */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    margin-bottom: 60px;
+}
+
+/* ===== 按鈕樣式 ===== */
+button {
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #7a5230;
+    background: linear-gradient(180deg, #fff3e0 0%, #ffe4b8 100%);
+    border: 1px solid rgba(200, 150, 90, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(200, 150, 90, 0.25);
+}
+
+button:hover {
+    background: #a67c52;
+    color: #fff8ef;
+    border-color: rgba(122, 82, 48, 0.5);
+    transform: translateY(-3px) scale(1);
+    box-shadow:
+        0 8px 20px rgba(122, 82, 48, 0.35),
+        0 0 24px rgba(166, 124, 82, 0.4);
+    letter-spacing: 0.5px;
+}
+
+button:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 3px 8px rgba(200, 150, 90, 0.3);
+}
+
+/* ===== 狀態訊息 ===== */
+#status-msg {
+    margin-top: -20px;
+    margin-bottom: 30px;
+    color: #7a5230;
+    font-size: 14px;
+    min-height: 20px;
+}
+
+/* ===== 歡迎頁卡片 ===== */
+.welcome-card {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(200, 150, 90, 0.3);
+    border-radius: 16px;
+    padding: 36px 48px;
+    box-shadow: 0 8px 24px rgba(200, 150, 90, 0.18);
+    backdrop-filter: blur(4px);
+    width: min(90%, 380px);
+    text-align: center;
+    font-size: 18px;
+    color: #7a5230;
+    margin-top: 20px;
+}
+
+.welcome-card #name {
+    font-weight: 700;
+    color: #a67c52;
+    margin-left: 4px;
+}

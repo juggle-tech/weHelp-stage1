@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Error Page {% endblock %}
+
+{% block content %}
+
+	<div class="hotelBlock">
+		<h1>旅館的資訊</h1>
+		<div class="hotelText">
+			<span>{{ hotel_info }}</span>
+			<a href="{{ url_for('home') }}">回到首頁</a>
+		</div>
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Member System</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="script.js" defer></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h2> 會員系統 </h2>
+        <div class="form-card">
+            <div class="form-row">
+                <span>姓名:</span>
+                <input type="text" id="signup-name" required/>
+            </div>
+            <div class="form-row">
+                <span>信箱:</span>
+                <input type="text" id="signup-email" required/>
+            </div>
+            <div class="form-row">
+                <span>密碼:</span>
+                <input type="password" id="signup-password" required/>
+            </div>
+            <button onclick="signup()">註冊帳號</button>
+            <a href="login.html"><button>登入帳號</button></a>
+        </div>
+    </body>
+</html>

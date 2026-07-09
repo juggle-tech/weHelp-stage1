@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block content %}
+
+	<div class="formBlock">
+		<h1>歡迎光臨，請輸入信箱密碼</h1>
+		<form id="loginForm" method="POST" action="{{ url_for('login') }}">
+			<h3>登入系統</h3>
+			<div class="labelBlock">
+				<label for="email">信箱</label>
+    			<input type="text" id="email" name="email" placeholder=" xxx@abc.com">
+			</div>
+
+			<div class="labelBlock">
+				<label for="password">密碼</label>
+				<input type="password" id="pwd" name="pwd" placeholder=" xxxxxxxxx">
+			</div>
+				
+			<div class="labelBlock">
+				<input type="checkbox" id="agree" name="agree">
+				<label for="agree">同意條款</label>
+			</div>
+
+            <button class="loginBtn">登入</button>
+		</form>
+
+		<hr>
+
+		<form id="hotelForm">
+			<h3>取得旅館資訊</h3>
+			<div class="labelBlock">
+				<label for="hotel_num">編號</label>
+    			<input type="text" id="hotel_num" placeholder=" 216">
+			</div>
+            <button id="hotelBtn" class="hotelBtn" type="button" onclick="getHotel()">取得</button>
+		</form>		
+	</div>
+	
+{% endblock %}
