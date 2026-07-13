@@ -1,16 +1,26 @@
-/* Task 1: Login processing */
 
-// Alert dialog for checkbox
-// const loginForm = document.getElementById("loginForm");
+/* Prevent emtpy input in signup form */
+document.getElementById("signUpForm").addEventListener("submit", function(e) {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email1").value.trim();
+    const pwd = document.getElementById("pwd1").value.trim();
 
-// if (loginForm) {    // Only valid when in index.html
-//     loginForm.addEventListener("submit", function (e) {
-//         const checkbox = document.getElementById("agree");
+    if (!name || !email || !pwd) {
+        e.preventDefault();
+        alert("No empty input allowed!")
+        return;
+    }
+});
 
-//         // Check if the box is checked
-//         if (!checkbox.checked) {
-//             e.preventDefault();
-//             alert("請勾選同意條款");
-//         }
-//     });
-// }
+
+/* Prevent emtpy input in login form */
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+    const email = document.getElementById("email2").value.trim();
+    const pwd = document.getElementById("pwd2").value.trim();
+
+    if (!email || !pwd) {
+        e.preventDefault();
+        alert("Email and password can not be empty!");
+        return;
+    }
+});

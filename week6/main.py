@@ -57,23 +57,41 @@ async def home(request: Request):
 
 @app.post("/login")
 async def login(request: Request, session: SessionDep, 
-                email: str = Form(""), pwd: str = Form("")):
+                email2: str = Form(""), pwd2: str = Form("")):
     
     # Validate if the email and password match
-    member = query.validate_login(session, email, pwd)
+    member = query.validate_login(session, email2, pwd2)
     if member:
         # Store user's name in session
+        request.session["member_id"] = member.id
         request.session["member_name"] = member.name
+        request.session["member_email"] = member.email
         return RedirectResponse(url = "/member", status_code = 303)
     else:
-        msg = "帳號或密碼輸入錯誤"
+        msg = "電子郵件或密碼錯誤"
         return RedirectResponse(url = f"/ohoh?msg={msg}", status_code = 303)
+
+
+@app.post("/signup")
+async def signup(request: Request, session: SessionDep, name: str = Form(""), 
+                  email1: str = Form(""), pwd1: str = Form("")):
+    if query.check_email(session, email1):
+        msg = "重複的電子郵件"
+        return templates.TemplateResponse(request, "ohoh.html", {"msg": msg})
+    else:
+        member = Member(name=name, email=email1, password=pwd1)
+        query.create_member(session, member)
+        return RedirectResponse(url = "/", status_code = 303)
 
 
 # member.html
 @app.get("/member")
 async def member(request: Request):
-    return templates.TemplateResponse(request, "member.html", 
+    
+    if "member_id" not in request.session:
+        return templates.TemplateResponse(request, "home.html")
+    else:
+        return templates.TemplateResponse(request, "member.html", 
                 context = {"name": request.session.get("member_name")
                 })
 
@@ -82,18 +100,6 @@ async def member(request: Request):
 @app.get("/ohoh")
 async def error_msg(request: Request, msg: str = ""):
     return templates.TemplateResponse(request, "ohoh.html", {"msg": msg})
-
-
-@app.post("/signup")
-async def sign_up(request: Request, session: SessionDep,name: str = Form(""), 
-                  email: str = Form(""), pwd: str = Form("")):
-    if query.check_email(session, email):
-        msg = "重複的電子郵件"
-        return templates.TemplateResponse(request, "ohoh.html", {"msg": msg})
-    else:
-        member = Member(name=name, email=email, pwd=pwd)
-        query.create_member(session, member)
-        return RedirectResponse(url = "/", status_code = 303)
     
 
 # logout.html
