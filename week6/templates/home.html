@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block content %}
+
+	<div class="formBlock">
+		<h1>歡迎光臨，請註冊登入系統</h1>
+		<form id="signUpForm" method="POST" action="{{ url_for('login') }}">
+			<h3>註冊帳號</h3>
+			<div class="labelBlock">
+				<label for="name">姓名</label>
+    			<input type="text" id="name" name="name" placeholder=" Shelly">
+			</div>
+
+			<div class="labelBlock">
+				<label for="email1">信箱</label>
+    			<input type="text" id="email1" name="email1" placeholder=" xxx@abc.com">
+			</div>
+
+			<div class="labelBlock">
+				<label for="pwd1">密碼</label>
+				<input type="password" id="pwd1" name="pwd1" placeholder=" xxxxxxxxx">
+			</div>
+
+            <button class="signUpBtn">註冊</button>
+		</form>
+
+		<hr>
+
+		<form id="loginForm" method="POST" action="{{ url_for('login') }}" >
+			<h3>登入系統</h3>
+			<div class="labelBlock">
+				<label for="email2">信箱</label>
+    			<input type="text" id="email2" name="email2" placeholder=" xxx@abc.com">
+			</div>
+
+			<div class="labelBlock">
+				<label for="pwd2">密碼</label>
+				<input type="password" id="pwd2" name="pwd2" placeholder=" xxxxxxxxx">
+			</div>
+            <button class="loginBtn">登入</button>
+		</form>		
+	</div>
+	
+{% endblock %}
