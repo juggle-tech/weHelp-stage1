@@ -2,6 +2,10 @@
 
 {% block title %} Member Page {% endblock %}
 
+{% block scripts %}
+	<script src="{{ url_for('static', path='/js/memberScript.js') }}" defer></script>
+{% endblock %}
+
 {% block content %}
 
 	<div class="memberBlock">

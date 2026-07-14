@@ -2,6 +2,10 @@
 
 {% block title %} Home Page {% endblock %}
 
+{% block scripts %}
+<script src="{{ url_for('static', path='/js/homeScript.js') }}" defer></script>
+{% endblock %}
+
 {% block content %}
 
 	<div class="formBlock">
@@ -44,3 +48,4 @@
 	</div>
 	
 {% endblock %}
+
