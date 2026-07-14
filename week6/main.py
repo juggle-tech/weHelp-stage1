@@ -1,3 +1,4 @@
+import json
 import os
 import query
 
@@ -5,7 +6,7 @@ from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
 from typing import Annotated
 from dotenv import load_dotenv
-from fastapi import Depends, FastAPI, Form, Request
+from fastapi import Body, Depends, FastAPI, Form, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, SQLModel, create_engine
@@ -118,17 +119,32 @@ def logout(request: Request):
 ## Fetch API
 # Create Msg API
 @app.post("/api/message")
-def create_message(body = Body(None)):
-    pass
+def create_message(request: Request, session: SessionDep, body = Body(None)):
+    
+    id = request.session["member_id"]
+    content = body["content"]
+    message = Message(member_id=id, content=content)
+    try:
+        query.create_message(session, message)
+        print("Succeed")
+        return {"ok": True}
+    except Exception as e:
+        print("Failed")
+        return {"error": True}
 
 
 # Get Msg API
 @app.get("/api/message")
-def get_message(body = Body(None)):
-    pass
+def get_message(session: SessionDep):
+    messages = query.get_all_messages(session)
+    print(messages)
+    if messages:
+        return {"ok": True, "data": messages} 
+    else:
+        return {"error": True}
 
 
 # Delete Msg API
-@app.delete("/api/message/{id}")
-def delete_message(id: int):
-    pass
+# @app.delete("/api/message/{id}")
+# def delete_message(id: int):
+#     pass

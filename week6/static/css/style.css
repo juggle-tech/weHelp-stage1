@@ -55,7 +55,7 @@ input {
     font-size: 1rem;
 }
 
-.loginBtn, .signUpBtn {
+.loginBtn, .signUpBtn, .postMessageBtn {
     margin: 10px 10px 20px 10px;
     padding: 8px 25px;
     background-color: rgba(77, 76, 76, 0.6);
@@ -65,29 +65,33 @@ input {
     font-size: 1rem;
 }
 
-.loginBtn:hover, .signUpBtn:hover {
+.loginBtn:hover, .signUpBtn:hover, .postMessageBtn:hover {
     background-color: rgba(77, 76, 76, 0.9);
     border: solid 2px rgba(77, 76, 76, 0.9);
     
 }
 
 
-/* member.html, error.html and hotel.html*/
-.memberBlock, .errorBlock {
+/* member.html, error.html*/
+.errorBlock {
     min-width: 30%;
     margin: 10%;
     border: solid 1px rgba(77, 76, 76, 0.8);
     text-align: center;
 }
 
-.memberBlock span, .errorBlock span {
+.card {
+    min-height: 20vh;
+}
+
+.memberText span, .errorText span {
     display: inline-block;
     margin: 20px;
     font-size: 1.3rem;
 }
 
 /* href */
-.memberText, .errorText {
+.memberText, .errorText, .messageText {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -130,7 +134,7 @@ input {
         font-size: 1.1rem;
     }
 
-    .memberBlock, .errorBlock, .hotelBlock {
+    .errorBlocks {
         min-width: 40%;
     }
 }
@@ -151,7 +155,7 @@ input {
         font-size: 0.9rem;
     }
 
-    .memberBlock, .errorBlock, .hotelBlock {
+    .errorBlock {
         min-width: 60%;
     }
 }

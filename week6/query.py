@@ -19,3 +19,15 @@ def create_member(session, member):
     session.commit()
     session.refresh(member)
     return member
+
+
+def get_all_messages(session):
+    stat = select(Member)
+    return session.exec(stat).all()
+
+
+def create_message(session, message):
+    session.add(message)
+    session.commit()
+    session.refresh(message)
+    return message
