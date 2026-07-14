@@ -30,7 +30,7 @@ def get_session():
     with Session(engine) as session:
         yield session
 
-# Simplify variable
+# Reusable type alias for the Session dependency
 SessionDep = Annotated[Session, Depends(get_session)]
 
 @asynccontextmanager
@@ -49,14 +49,14 @@ app.add_middleware(SessionMiddleware, secret_key = "jung-secret-key")
 ## API
 # home.html
 @app.get("/")
-async def home(request: Request):
+def home(request: Request):
     return templates.TemplateResponse(
         request = request, name = "home.html", context = {}
     )
 
 
 @app.post("/login")
-async def login(request: Request, session: SessionDep, 
+def login(request: Request, session: SessionDep, 
                 email2: str = Form(""), pwd2: str = Form("")):
     
     # Validate if the email and password match
@@ -73,7 +73,7 @@ async def login(request: Request, session: SessionDep,
 
 
 @app.post("/signup")
-async def signup(request: Request, session: SessionDep, name: str = Form(""), 
+def signup(request: Request, session: SessionDep, name: str = Form(""), 
                   email1: str = Form(""), pwd1: str = Form("")):
     if query.check_email(session, email1):
         msg = "重複的電子郵件"
@@ -86,7 +86,7 @@ async def signup(request: Request, session: SessionDep, name: str = Form(""),
 
 # member.html
 @app.get("/member")
-async def member(request: Request):
+def member(request: Request):
     
     if "member_id" not in request.session:
         return templates.TemplateResponse(request, "home.html")
@@ -98,13 +98,13 @@ async def member(request: Request):
 
 # ohoh.html
 @app.get("/ohoh")
-async def error_msg(request: Request, msg: str = ""):
+def error_msg(request: Request, msg: str = ""):
     return templates.TemplateResponse(request, "ohoh.html", {"msg": msg})
     
 
 # logout.html
 @app.get("/logout")
-async def logout(request: Request):
+def logout(request: Request):
     # Clear all stored session data
     request.session.clear()
     return RedirectResponse(url = "/", status_code = 303)
