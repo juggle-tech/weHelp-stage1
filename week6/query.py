@@ -21,9 +21,23 @@ def create_member(session, member):
     return member
 
 
-def get_all_messages(session):
-    stat = select(Member)
-    return session.exec(stat).all()
+def get_all_messages(session, user_id):
+    stat = (
+        select(Message, Member.name)
+        .join(Member, Message.member_id == Member.id)
+        .order_by(Message.time.desc())
+    )
+
+    results = session.exec(stat).all()
+
+    return [{
+            "id": message.id,
+            "name": name,
+            "content": message.content,
+            "self": message.member_id == user_id
+        }
+        for message, name in results
+    ]
 
 
 def create_message(session, message):

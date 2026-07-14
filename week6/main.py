@@ -126,18 +126,16 @@ def create_message(request: Request, session: SessionDep, body = Body(None)):
     message = Message(member_id=id, content=content)
     try:
         query.create_message(session, message)
-        print("Succeed")
         return {"ok": True}
     except Exception as e:
-        print("Failed")
         return {"error": True}
 
 
 # Get Msg API
 @app.get("/api/message")
-def get_message(session: SessionDep):
-    messages = query.get_all_messages(session)
-    print(messages)
+def get_message(request: Request, session: SessionDep):
+    id = request.session["member_id"]
+    messages = query.get_all_messages(session, id)
     if messages:
         return {"ok": True, "data": messages} 
     else:
@@ -145,6 +143,6 @@ def get_message(session: SessionDep):
 
 
 # Delete Msg API
-# @app.delete("/api/message/{id}")
-# def delete_message(id: int):
-#     pass
+@app.delete("/api/message/{id}")
+def delete_message(id: int):
+    pass
