@@ -13,8 +13,8 @@ from models import Member, Message
 from starlette.middleware.sessions import SessionMiddleware
 
 
-# Retrieve DB variables in .env
-load_dotenv()  
+## Database setup
+load_dotenv()  # Retrieve DB variables in .env
 
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
@@ -26,6 +26,7 @@ DB_NAME = os.getenv("DB_NAME")
 mysql_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 engine = create_engine(mysql_url, echo=True)
 
+# DB session dependency
 def get_session():
     with Session(engine) as session:
         yield session
@@ -33,12 +34,14 @@ def get_session():
 # Reusable type alias for the Session dependency
 SessionDep = Annotated[Session, Depends(get_session)]
 
+# Create tables on startup
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     SQLModel.metadata.create_all(engine)
     yield
 
 
+## App setup
 app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory = "static"), name = "static")
 templates = Jinja2Templates(directory = "templates")
@@ -46,7 +49,7 @@ templates = Jinja2Templates(directory = "templates")
 app.add_middleware(SessionMiddleware, secret_key = "jung-secret-key")
 
 
-## API
+## RESTful API
 # home.html
 @app.get("/")
 def home(request: Request):
@@ -100,7 +103,7 @@ def member(request: Request):
 @app.get("/ohoh")
 def error_msg(request: Request, msg: str = ""):
     return templates.TemplateResponse(request, "ohoh.html", {"msg": msg})
-    
+
 
 # logout.html
 @app.get("/logout")
@@ -108,3 +111,24 @@ def logout(request: Request):
     # Clear all stored session data
     request.session.clear()
     return RedirectResponse(url = "/", status_code = 303)
+
+
+
+
+## Fetch API
+# Create Msg API
+@app.post("/api/message")
+def create_message(body = Body(None)):
+    pass
+
+
+# Get Msg API
+@app.get("/api/message")
+def get_message(body = Body(None)):
+    pass
+
+
+# Delete Msg API
+@app.delete("/api/message/{id}")
+def delete_message(id: int):
+    pass
