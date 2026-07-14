@@ -45,3 +45,10 @@ def create_message(session, message):
     session.commit()
     session.refresh(message)
     return message
+
+
+def delete_message(session, id):
+    message = session.get(Message, id)
+    session.delete(message)
+    session.commit()
+    return message

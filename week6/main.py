@@ -144,5 +144,9 @@ def get_message(request: Request, session: SessionDep):
 
 # Delete Msg API
 @app.delete("/api/message/{id}")
-def delete_message(id: int):
-    pass
+def delete_message(session: SessionDep, id: int):
+    try:
+        query.delete_message(session, id)
+        return {"ok": True}
+    except Exception as e:
+        return {"error": True}

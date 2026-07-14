@@ -79,7 +79,18 @@ async function getMessages() {
 
 // Delete Msg
 async function deleteMessage(id) {
-    
+
+    if (confirm("Are you sure you want to delete this record?")) {
+        // Send request to backend
+        let response = await fetch("/api/message/" + id, {
+            method: "DELETE"
+        });
+        // Get response from backend
+        let result = await response.json();
+        if (result.ok) {
+            getMessages();
+        }
+    }
 }
 
 getMessages();
