@@ -3,8 +3,13 @@
 // Creare Msg
 async function postMessage() {
     // Sent request to backend
-    let content = document.getElementById("content").value;
+    let content = document.getElementById("content").value.trim();
 
+    // Alert empty input
+    if (!content) {
+        alert("Message can not be empty!");
+        return;
+    }
     let response = await fetch("/api/message", {
         method: "POST",
         headers: {
@@ -17,6 +22,7 @@ async function postMessage() {
 
     // Get response from backend
     let result = await response.json();
+    console.log(result);
     if (result.ok) {
         document.getElementById("content").value = "";
         getMessages();

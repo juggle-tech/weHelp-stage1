@@ -52,3 +52,7 @@ def delete_message(session, id):
     session.delete(message)
     session.commit()
     return message
+
+
+def get_author_id(session, id):
+    return session.get(Message, id).member_id
