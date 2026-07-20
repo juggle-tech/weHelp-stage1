@@ -156,4 +156,13 @@ def delete_message(request: Request, session: SessionDep, id: int):
 # Update user's token
 @app.put("/api/token")
 def update_token(request: Request, session: SessionDep):
-    pass
+    try:
+        id = request.session["member_id"]
+        if (id):
+            # Store token
+            token = query.update_token(session, id)
+            return {"ok": True,"token": token}
+    except Exception as e:
+        return {"error": True}
+
+    

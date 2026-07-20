@@ -111,7 +111,9 @@ async function updateToken() {
     let result = await response.json();
     if (result.ok) {
         let token = document.getElementById("token");
+        let tokenBlock = document.getElementById("tokenBlock");
         token.textContent = result.token;
+        tokenBlock.classList.add("tokenBorder");
     }
 }
 

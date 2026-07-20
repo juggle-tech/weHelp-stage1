@@ -1,5 +1,7 @@
 from sqlmodel import select
 from models import Member, Message
+import hashlib
+import time
 
 def validate_login(session, email, pwd):
     stat = select(Member).where(
@@ -56,3 +58,18 @@ def delete_message(session, id):
 
 def get_author_id(session, id):
     return session.get(Message, id).member_id
+
+
+def get_member_by_id(session, id):
+    return session.get(Member, id)
+
+
+def update_token(session, id):
+    # Get member data
+    member = get_member_by_id(session, id)
+    
+    # Create token using sha256
+    token = hashlib.sha256(f"{member.email}|{time.time()}".encode()).hexdigest()
+    member.token = token
+    session.commit()
+    return token

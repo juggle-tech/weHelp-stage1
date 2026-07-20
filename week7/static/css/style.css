@@ -66,8 +66,8 @@ input {
 }
 
 .loginBtn:hover, .signUpBtn:hover, .postMessageBtn:hover, .updateTokenBtn:hover {
-    background-color: rgba(77, 76, 76, 0.9);
-    border: solid 2px rgba(77, 76, 76, 0.9);
+    background-color: rgba(1, 1, 1, 1);
+    border: solid 2px rgba(1, 1, 1, 0.8);
     
 }
 
@@ -113,11 +113,19 @@ input {
     font-size: 1.3rem;
 }
 
+.tokenText span {
+    margin: 5px 10px;
+}
+
 /* href */
 .memberText, .errorText, .messageText, .tokenText {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.tokenBorder {
+    border: solid 2px red;
 }
 
 .memberText a, .errorText a {
