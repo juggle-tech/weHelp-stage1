@@ -1,30 +1,18 @@
-import os
 import query
 
 from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
 from typing import Annotated
-from dotenv import load_dotenv
 from fastapi import Body, Depends, FastAPI, Form, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel import Session, SQLModel
 from models import Member, Message
 from starlette.middleware.sessions import SessionMiddleware
+from mcp_server import mcp_app
+from query import engine
+from fastmcp.utilities.lifespan import combine_lifespans
 
-
-## Database setup
-load_dotenv()  # Retrieve DB variables in .env
-
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT")
-DB_NAME = os.getenv("DB_NAME")
-
-# Connect to MySQL
-mysql_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-engine = create_engine(mysql_url, echo=True)
 
 # DB session dependency
 def get_session():
@@ -42,8 +30,9 @@ async def lifespan(app: FastAPI):
 
 
 ## App setup
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan = combine_lifespans(lifespan, mcp_app.lifespan))
 app.mount("/static", StaticFiles(directory = "static"), name = "static")
+app.mount("/mcp", mcp_app)
 templates = Jinja2Templates(directory = "templates")
 # Session
 app.add_middleware(SessionMiddleware, secret_key = "jung-secret-key")
@@ -158,7 +147,7 @@ def delete_message(request: Request, session: SessionDep, id: int):
 def update_token(request: Request, session: SessionDep):
     try:
         id = request.session["member_id"]
-        if (id):
+        if id:
             # Store token
             token = query.update_token(session, id)
             return {"ok": True,"token": token}

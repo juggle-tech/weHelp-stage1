@@ -1,7 +1,25 @@
+import os
+from dotenv import load_dotenv
+from sqlmodel import create_engine
 from sqlmodel import select
 from models import Member, Message
 import hashlib
 import time
+
+
+## Database setup
+load_dotenv()  # Retrieve DB variables in .env
+
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = os.getenv("DB_NAME")
+
+# Connect to MySQL
+mysql_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+engine = create_engine(mysql_url, echo=True)
+
 
 def validate_login(session, email, pwd):
     stat = select(Member).where(
@@ -73,3 +91,8 @@ def update_token(session, id):
     member.token = token
     session.commit()
     return token
+
+
+def get_member_by_token(session, token):
+    stat = select(Member).where(Member.token == token)
+    return session.exec(stat).first()
