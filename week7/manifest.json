@@ -1,0 +1,23 @@
+{
+  "manifest_version": "0.2",
+  "name": "Testing Message Website",
+  "version": "1.0.0",
+  "description": "Message Website",
+  "author": {
+    "name": "Jung"
+  },
+  "server": {
+    "type": "python",
+    "entry_point": "server/main.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/server/main.py"
+      ],
+      "env": {
+        "PYTHONPATH": "${__dirname}/server/lib"
+      }
+    }
+  },
+  "license": "MIT"
+}

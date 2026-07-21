@@ -153,5 +153,3 @@ def update_token(request: Request, session: SessionDep):
             return {"ok": True,"token": token}
     except Exception as e:
         return {"error": True}
-
-    
