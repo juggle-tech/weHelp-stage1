@@ -1,4 +1,5 @@
 import os
+import secrets
 from dotenv import load_dotenv
 from sqlmodel import create_engine
 from sqlmodel import select
@@ -85,9 +86,10 @@ def get_member_by_id(session, id):
 def update_token(session, id):
     # Get member data
     member = get_member_by_id(session, id)
+    salt = secrets.token_hex(8)
     
     # Create token using sha256
-    token = hashlib.sha256(f"{member.email}|{time.time()}".encode()).hexdigest()
+    token = hashlib.sha256(f"{member.email}|{salt}|{time.time()}".encode()).hexdigest()
     member.token = token
     session.commit()
     return token
