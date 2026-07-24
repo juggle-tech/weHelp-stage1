@@ -31,7 +31,7 @@ create_database_if_not_exists()
 
 # Connect to MySQL
 mysql_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-engine = create_engine(mysql_url, echo=True)
+engine = create_engine(mysql_url, echo=False) # echo=True -> print executed SQL statements
 
 
 def validate_login(session, email, pwd):
