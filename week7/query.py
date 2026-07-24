@@ -1,6 +1,7 @@
 import os
 import secrets
 from dotenv import load_dotenv
+from sqlalchemy import text
 from sqlmodel import create_engine
 from sqlmodel import select
 from models import Member, Message
@@ -16,6 +17,17 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 DB_NAME = os.getenv("DB_NAME")
+
+# Connect to MySQL server (no database specified) to check/create the database
+def create_database_if_not_exists():
+    server_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/"
+    temp_engine = create_engine(server_url)
+    with temp_engine.connect() as conn:
+        conn.execute(text(f"CREATE DATABASE IF NOT EXISTS `{DB_NAME}` CHARACTER SET utf8mb4"))
+        conn.commit()
+    temp_engine.dispose()
+
+create_database_if_not_exists()
 
 # Connect to MySQL
 mysql_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
