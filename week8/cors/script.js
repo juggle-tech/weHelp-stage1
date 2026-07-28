@@ -1,6 +1,7 @@
 const cwGithub = 'https://cwpeng.github.io/test/assignment-3-1';
 const google = 'https://www.google.com/';
 const myWebsite = 'http://localhost:8000/api/hello';
+const proxyGoogle = 'http://localhost:8000/proxy/google';
 
 async function fetchURL(url) {
     try {
@@ -18,4 +19,5 @@ async function fetchURL(url) {
 fetchURL(cwGithub);
 fetchURL(google);
 fetchURL(myWebsite);
+fetchURL(proxyGoogle);
 
