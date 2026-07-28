@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        window.timeLog = [];
+        function logTime(label) {
+        const time = performance.now().toFixed(1);
+        window.timeLog.push({ label, time });
+        const el = document.getElementById('log');
+        if (el) {
+            el.innerHTML = window.timeLog
+            .map(e => `<p>${e.label}: ${e.time} ms</p>`)
+            .join('');
+        }
+        console.log(label, time);
+        }
+        logTime('HTML start parsing.');
+    </script>
+
+    <script src="clock.js"></script>
+    <script src="track.js" async></script>
+    <title>Topic 1: async</title>
+</head>
+<body>
+    <h3>Live clock:</h3>
+    <div id="clock">0</div>
+
+    <h3>Timestamps:</h3>
+    <div id="log"></div>
+
+    <img id="preview" alt="downloaded image">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => logTime('DOMContentLoaded (DCL)'));
+        window.addEventListener('load', () => logTime('Window load'));
+    </script>
+</body>
+</html>

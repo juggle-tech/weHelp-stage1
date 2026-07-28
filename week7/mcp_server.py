@@ -25,7 +25,7 @@ def get_member_id():
 
     if member:
         return member.id
-
+    
     return None
 
 
