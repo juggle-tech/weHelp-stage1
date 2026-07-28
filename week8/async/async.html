@@ -18,21 +18,19 @@
         }
         console.log(label, time);
         }
-        logTime('HTML start parsing.');
+        logTime('HTML start parsing');
     </script>
 
-    <script src="clock.js"></script>
+    <script src="moreContent.js" async></script>
     <script src="track.js" async></script>
     <title>Topic 1: async</title>
 </head>
 <body>
-    <h3>Live clock:</h3>
-    <div id="clock">0</div>
 
     <h3>Timestamps:</h3>
     <div id="log"></div>
 
-    <img id="preview" alt="downloaded image">
+    <img id="largeImg" alt="Large image">
 
     <script>
         document.addEventListener('DOMContentLoaded', () => logTime('DOMContentLoaded (DCL)'));

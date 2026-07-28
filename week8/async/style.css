@@ -4,12 +4,7 @@ body {
   font-size: 24px;
 }
 
-#clock {
-  color: #1D9E75;
-  font-weight: bold;
-}
-
-#preview {
+#largeImg {
   display: block;
   max-width: 100%;
   margin-top: 20px;

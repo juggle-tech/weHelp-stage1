@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- No defer version-->
+    <script src="log.js"></script>
+    <script src="printLog.js"></script>
+
+    <!-- Defer version -->
+    <!-- <script src="log.js" defer></script>
+    <script src="printLog.js" defer></script> -->
+
+    <!-- Defer with Correct cript oorder -->
+    <!-- <script src="log.js"></script>
+    <script src="printLog.js" defer></script> -->
+    
+    <!-- Defer with Wrong script order -->
+    <!-- <script src="log.js" defer></script>
+    <script src="printLog.js"></script> -->
+
+
+    <title>Topic 1: defer</title>
+</head>
+<body>
+
+    <h3>Timestamps:</h3>
+    <div id="log"></div>
+
+    <script>logTime('Inline script at end of body executed');</script>
+  
+</body>
+</html>
