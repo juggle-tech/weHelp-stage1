@@ -81,7 +81,7 @@ def signup(request: Request, session: SessionDep, name: str = Form(""),
 def member(request: Request):
     
     if "member_id" not in request.session:
-        return templates.TemplateResponse(request, "home.html")
+        return RedirectResponse(url="/", status_code=302)
     else:
         return templates.TemplateResponse(request, "member.html", 
                 context = {"name": request.session.get("member_name")
@@ -108,6 +108,9 @@ def logout(request: Request):
 # Create Msg API
 @app.post("/api/message")
 def create_message(request: Request, session: SessionDep, body = Body(None)):
+
+    if "member_id" not in request.session:
+        return {"error": True}
     
     id = request.session["member_id"]
     content = body["content"]
@@ -122,6 +125,10 @@ def create_message(request: Request, session: SessionDep, body = Body(None)):
 # Get Msg API
 @app.get("/api/message")
 def get_message(request: Request, session: SessionDep):
+
+    if "member_id" not in request.session:
+        return {"error": True}
+
     id = request.session["member_id"]
     messages = query.get_all_messages(session, id)
     if messages:
@@ -133,6 +140,8 @@ def get_message(request: Request, session: SessionDep):
 # Delete Msg API
 @app.delete("/api/message/{id}")
 def delete_message(request: Request, session: SessionDep, id: int):
+    if "member_id" not in request.session:
+        return {"error": True}
     try:
         if (query.get_author_id(session, id) == request.session["member_id"]):
             query.delete_message(session, id)

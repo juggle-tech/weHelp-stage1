@@ -53,6 +53,6 @@ if __name__ == "__main__":
     print(get_user_by_id(1))
 
     connections = []
-    for i in range(4):
+    for i in range(3):
         connections.append(cnxpool.get_connection())
         print(f"Successfully borrowed connection #{ i+1 }")
