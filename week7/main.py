@@ -10,7 +10,7 @@ from sqlmodel import Session, SQLModel
 from models import Member, Message
 from starlette.middleware.sessions import SessionMiddleware
 from mcp_server import mcp_app
-from query import engine
+from query import engine, create_database_if_not_exists
 from fastmcp.utilities.lifespan import combine_lifespans
 
 
@@ -25,6 +25,7 @@ SessionDep = Annotated[Session, Depends(get_session)]
 # Create tables on startup
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    create_database_if_not_exists()
     SQLModel.metadata.create_all(engine)
     yield
 

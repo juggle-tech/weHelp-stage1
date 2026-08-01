@@ -1,17 +1,3 @@
-"""
-query.py 測試檔
-----------------------------------
-這裡直接呼叫 query.py 裡的函式,不透過 HTTP、不透過 main.py 的路由,
-專注測試資料庫邏輯本身是否正確,失敗時比較好定位問題。
-
-重要提醒:
-query.py 在被 import 的當下就會執行 create_database_if_not_exists(),
-實際去連線 MySQL 伺服器。也就是說,光是這個檔案最上面的 `import query`,
-就需要你的 .env 指向一個真的連得到的 MySQL,否則會在收集測試階段就報錯。
-之後可以考慮把這段連線邏輯改成不要在 import 時就自動執行
-(例如搬進 main.py 的 lifespan,或包成一個要手動呼叫的函式),
-測試環境會單純很多。
-"""
 
 import query
 from models import Member, Message
@@ -58,7 +44,7 @@ def test_validate_login_wrong_password(session):
 # ---------- create_member ----------
 
 def test_create_member(session):
-    member = Member(name="小明", email="ming@test.com", password="abc123")
+    member = Member(name="Ming", email="ming@test.com", password="abc123")
     result = query.create_member(session, member)
 
     assert result.id is not None

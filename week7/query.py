@@ -27,7 +27,7 @@ def create_database_if_not_exists():
         conn.commit()
     temp_engine.dispose()
 
-create_database_if_not_exists()
+
 
 # Connect to MySQL
 mysql_url = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
